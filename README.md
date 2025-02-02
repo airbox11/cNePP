@@ -627,19 +627,19 @@ This README provides a comprehensive guide on how to use the pipeline, the avail
 
 ## location: 3_add_expression
 
-├── 3_add_expression
-│   ├── addRNA1
-│   ├── addRNA2
-│   ├── addRNA3
-│   ├── fpkm_COL6A3_exon6.txt
-│   ├── MHCI_epitopes_TCGA-HNSC_RNAseq_netMHCpan4_1.tab
-│   ├── MHCII_epitopes_TCGA-HNSC_RNAseq.tab
-│   ├── past
-│   │   ├── MHCI_epitopes_RNAseq_netMHCpan4_1.tab
-│   │   └── MHCII_epitopes_RNAseq.tab
-│   ├── tumor_IPNCT_P013521.fpkm_tpm.featureCounts.tsv
-│   ├── tumor_IPNCT_P013521_merged.mdup.bam
-│   └── tumor_IPNCT_P013521_merged.mdup.bam.bai
+    ├── 3_add_expression
+    │   ├── addRNA1
+    │   ├── addRNA2
+    │   ├── addRNA3
+    │   ├── fpkm_COL6A3_exon6.txt
+    │   ├── MHCI_epitopes_TCGA-HNSC_RNAseq_netMHCpan4_1.tab
+    │   ├── MHCII_epitopes_TCGA-HNSC_RNAseq.tab
+    │   ├── past
+    │   │   ├── MHCI_epitopes_RNAseq_netMHCpan4_1.tab
+    │   │   └── MHCII_epitopes_RNAseq.tab
+    │   ├── tumor_IPNCT_P013521.fpkm_tpm.featureCounts.tsv
+    │   ├── tumor_IPNCT_P013521_merged.mdup.bam
+    │   └── tumor_IPNCT_P013521_merged.mdup.bam.bai
 
 ### addRNA1
     (addRNA* files: intermediate steps for reads information extraction and gene annotation)
