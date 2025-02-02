@@ -204,184 +204,185 @@ This README provides a comprehensive guide on how to use the pipeline, the avail
 
 
 --- 
-.
-├── 1_hla_type
-│   ├── cgi
-│   │   ├── alterations.tsv
-│   │   ├── biomarkers.tsv
-│   │   ├── input01.tsv
-│   │   └── summary.txt
-│   ├── cgi_HNSC_9a37b5ab9224f77ca9a7.log
-│   ├── control_IPNCT_P013521_merged.mdup.bam
-│   ├── format_hla
-│   ├── hla_sab_P013521
-│   │   ├── Kourami
-│   │   │   └── control_DNA
-│   │   │       ├── hla_sab_P013521.log
-│   │   │       ├── hla_sab_P013521.result
-│   │   │       └── hla_sab_P013521.result_formatted.tsv
-│   │   ├── MHCII_typing.tsv
-│   │   ├── MHCI_typing.tsv
-│   │   ├── netMHCII_input.txt
-│   │   ├── netMHCI_input.txt
-│   │   ├── Optitype
-│   │   │   └── control_DNA
-│   │   │       ├── 2024_04_24_11_41_10
-│   │   │       │   ├── 2024_04_24_11_41_10_coverage_plot.pdf
-│   │   │       │   └── 2024_04_24_11_41_10_result.tsv
-│   │   │       └── 2024_04_24_11_41_10_result_formatted.tsv
-│   │   ├── stdout_extract_reads_control_DNA_25734363
-│   │   ├── stdout_format_HLA_types_25741019
-│   │   ├── stdout_run_kourami_control_DNA_25735093
-│   │   └── stdout_run_optitype_control_DNA_25735092
-│   ├── mutation.csv
-│   ├── mutation_germline.csv
-│   └── mutation.tsv
-├── 2_SNVs_based_neoepitope_prediction
-│   ├── 1.vcf
-│   ├── 2.vcf
-│   ├── 2.vcf.annovar
-│   ├── 2.vcf.annovar.exonic_variant_function
-│   ├── 2.vcf.annovar.exonic_variant_function_multiple
-│   ├── 2.vcf.annovar.invalid_input
-│   ├── 2.vcf.annovar.log
-│   ├── 2.vcf.annovar.variant_function
-│   ├── netMHCpan4_1
-│   │   ├── headerMHCI
-│   │   ├── headerMHCII
-│   │   ├── headerVCF
-│   │   ├── map_NM_geneName
-│   │   ├── mut.fa
-│   │   ├── mut.fa_15
-│   │   ├── mut.fa_8
-│   │   ├── netMHCI_HLA-A01:01_mut
-│   │   ├── netMHCI_HLA-A01:01_mut_reformat
-│   │   ├── netMHCI_HLA-A01:01_ref
-│   │   ├── netMHCI_HLA-A01:01_ref_reformat
-│   │   ├── netMHCI_HLA-A01:01_summary
-│   │   ├── netMHCI_HLA-A02:01_mut
-│   │   ├── netMHCI_HLA-A02:01_mut_reformat
-│   │   ├── netMHCI_HLA-A02:01_ref
-│   │   ├── netMHCI_HLA-A02:01_ref_reformat
-│   │   ├── netMHCI_HLA-A02:01_summary
-│   │   ├── netMHCI_HLA-B08:01_mut
-│   │   ├── netMHCI_HLA-B08:01_mut_reformat
-│   │   ├── netMHCI_HLA-B08:01_ref
-│   │   ├── netMHCI_HLA-B08:01_ref_reformat
-│   │   ├── netMHCI_HLA-B08:01_summary
-│   │   ├── netMHCI_HLA-B40:01_mut
-│   │   ├── netMHCI_HLA-B40:01_mut_reformat
-│   │   ├── netMHCI_HLA-B40:01_ref
-│   │   ├── netMHCI_HLA-B40:01_ref_reformat
-│   │   ├── netMHCI_HLA-B40:01_summary
-│   │   ├── netMHCI_HLA-C03:04_mut
-│   │   ├── netMHCI_HLA-C03:04_mut_reformat
-│   │   ├── netMHCI_HLA-C03:04_ref
-│   │   ├── netMHCI_HLA-C03:04_ref_reformat
-│   │   ├── netMHCI_HLA-C03:04_summary
-│   │   ├── netMHCI_HLA-C07:01_mut
-│   │   ├── netMHCI_HLA-C07:01_mut_reformat
-│   │   ├── netMHCI_HLA-C07:01_ref
-│   │   ├── netMHCI_HLA-C07:01_ref_reformat
-│   │   ├── netMHCI_HLA-C07:01_summary
-│   │   ├── netMHCII_DRB1_0301_mut
-│   │   ├── netMHCII_DRB1_0301_mut_reformat
-│   │   ├── netMHCII_DRB1_0301_ref
-│   │   ├── netMHCII_DRB1_0301_ref_reformat
-│   │   ├── netMHCII_DRB1_0301_summary
-│   │   ├── netMHCII_DRB1_1302_mut
-│   │   ├── netMHCII_DRB1_1302_mut_reformat
-│   │   ├── netMHCII_DRB1_1302_ref
-│   │   ├── netMHCII_DRB1_1302_ref_reformat
-│   │   ├── netMHCII_DRB1_1302_summary
-│   │   ├── predictedProtein.fa
-│   │   ├── ref.fa
-│   │   ├── ref.fa_15
-│   │   ├── ref.fa_8
-│   │   ├── results_MHCI_epitopes.tab
-│   │   ├── results_MHCI_epitopes.tab.hydro
-│   │   ├── results_MHCI_epitopes.tab.hydro_splitGenes
-│   │   ├── results_MHCI_epitopes.tab_splitGenes
-│   │   ├── results_MHCII_epitopes.tab
-│   │   ├── results_MHCII_epitopes.tab.hydro
-│   │   ├── results_MHCII_epitopes.tab.hydro_splitGenes
-│   │   └── results_MHCII_epitopes.tab_splitGenes
-│   ├── snvs_IPNCT_P013521_germline_functional_snvs_conf_8_to_10.vcf
-│   └── snvs_IPNCT_P013521_somatic_functional_snvs_conf_8_to_10.vcf
-├── 3_add_expression
-│   ├── addRNA1
-│   ├── addRNA2
-│   ├── addRNA3
-│   ├── fpkm_COL6A3_exon6.txt
-│   ├── MHCI_epitopes_TCGA-HNSC_RNAseq_netMHCpan4_1.tab
-│   ├── MHCII_epitopes_TCGA-HNSC_RNAseq.tab
-│   ├── past
-│   │   ├── MHCI_epitopes_RNAseq_netMHCpan4_1.tab
-│   │   └── MHCII_epitopes_RNAseq.tab
-│   ├── tumor_IPNCT_P013521.fpkm_tpm.featureCounts.tsv
-│   ├── tumor_IPNCT_P013521_merged.mdup.bam
-│   └── tumor_IPNCT_P013521_merged.mdup.bam.bai
-├── 4_indel_based_prediction
-│   ├── indel_IPNCT_P013521_germline_functional_indels_conf_8_to_10.vcf
-│   ├── indel_IPNCT_P013521_somatic_functional_indels_conf_8_to_10.vcf
-│   └── result
-├── 5_LOHHLA
-│   ├── data
-│   │   ├── example.patient.hlaFasta.fa
-│   │   ├── hlas
-│   │   └── HLAs
-│   ├── example-file
-│   │   └── bam
-│   └── example-out
-│       ├── Figures
-│       ├── running.hla.loh.exome@Mon_May_13_11-42-49_2024_log.txt
-│       ├── running.hla.loh.exome@Wed_Apr_24_16-26-50_2024_log.txt
-│       ├── running.hla.loh.exome@Wed_Apr_24_16-52-35_2024_log.txt
-│       └── running.hla.loh.exome@Wed_Dec_18_10-53-56_2024_log.txt
-├── 8_chose_neoepitode
-│   ├── MHCI_epitopes_TCGA-HNSC_RNAseq_netMHCpan4_1.tab
-│   ├── MHCI_epitopes_TCGA-HNSC_RNAseq_netMHCpan4_1.tab_renameCol
-│   ├── MHCI_epitopes_TCGA-HNSC_RNAseq_netMHCpan4_1.tab_renameCol_wish
-│   ├── MHCII_epitopes_TCGA-HNSC_RNAseq.tab
-│   ├── MHCII_epitopes_TCGA-HNSC_RNAseq.tab_renameCol
-│   ├── MHCII_epitopes_TCGA-HNSC_RNAseq.tab_renameCol_wish
-│   └── wish_list_genes_expression.csv
-├── 9_Fusion_gene_based_neoepitope_identification
-│   ├── 2_arriba_result_RNAbamOpt
-│   │   ├── fusions.discarded.tsv
-│   │   ├── fusions.tsv
-│   │   ├── fusions.tsv_splitGenes
-│   │   ├── netMHCII_input.txt
-│   │   └── netMHCI_input.txt
-│   └── 3_neoPrediction_RNAbamOpt
-│       ├── MHCI_filtered
-│       ├── MHCII_filtered
-│       ├── MHCII_reformat
-│       ├── MHCI_reformat
-│       ├── netMHCI_HLA-A01:01_fusion
-│       ├── netMHCI_HLA-A02:01_fusion
-│       ├── netMHCI_HLA-B08:01_fusion
-│       ├── netMHCI_HLA-B40:01_fusion
-│       ├── netMHCI_HLA-C03:04_fusion
-│       ├── netMHCI_HLA-C07:01_fusion
-│       ├── netMHCII_DQA1_0102_fusion
-│       ├── netMHCII_DQB1_0201_fusion
-│       ├── netMHCII_DQB1_0604_fusion
-│       ├── netMHCII_DRB1_0301_fusion
-│       ├── netMHCII_DRB1_1302_fusion
-│       ├── peptides_for_binding_prediction.fa
-│       ├── peptides_for_binding_prediction.fa_15
-│       ├── peptides_for_binding_prediction.fa_8
-│       ├── results_P013521_neoPrediction_MHCI_epitopes_filtered_ident.tsv
-│       ├── results_P013521_neoPrediction_MHCI_epitopes_filtered_ident.tsv_mer
-│       ├── results_P013521_neoPrediction_MHCII_epitopes_filtered_ident.tsv
-│       ├── stdout_extractProtein_fusion
-│       ├── stdout_netMHC_fusion
-│       ├── stdout_summary
-│       └── wild-type_peptides
-└── tmp_run_status
+## intermidiate file structure
+      .
+      ├── 1_hla_type
+      │   ├── cgi
+      │   │   ├── alterations.tsv
+      │   │   ├── biomarkers.tsv
+      │   │   ├── input01.tsv
+      │   │   └── summary.txt
+      │   ├── cgi_HNSC_9a37b5ab9224f77ca9a7.log
+      │   ├── control_IPNCT_P013521_merged.mdup.bam
+      │   ├── format_hla
+      │   ├── hla_sab_P013521
+      │   │   ├── Kourami
+      │   │   │   └── control_DNA
+      │   │   │       ├── hla_sab_P013521.log
+      │   │   │       ├── hla_sab_P013521.result
+      │   │   │       └── hla_sab_P013521.result_formatted.tsv
+      │   │   ├── MHCII_typing.tsv
+      │   │   ├── MHCI_typing.tsv
+      │   │   ├── netMHCII_input.txt
+      │   │   ├── netMHCI_input.txt
+      │   │   ├── Optitype
+      │   │   │   └── control_DNA
+      │   │   │       ├── 2024_04_24_11_41_10
+      │   │   │       │   ├── 2024_04_24_11_41_10_coverage_plot.pdf
+      │   │   │       │   └── 2024_04_24_11_41_10_result.tsv
+      │   │   │       └── 2024_04_24_11_41_10_result_formatted.tsv
+      │   │   ├── stdout_extract_reads_control_DNA_25734363
+      │   │   ├── stdout_format_HLA_types_25741019
+      │   │   ├── stdout_run_kourami_control_DNA_25735093
+      │   │   └── stdout_run_optitype_control_DNA_25735092
+      │   ├── mutation.csv
+      │   ├── mutation_germline.csv
+      │   └── mutation.tsv
+      ├── 2_SNVs_based_neoepitope_prediction
+      │   ├── 1.vcf
+      │   ├── 2.vcf
+      │   ├── 2.vcf.annovar
+      │   ├── 2.vcf.annovar.exonic_variant_function
+      │   ├── 2.vcf.annovar.exonic_variant_function_multiple
+      │   ├── 2.vcf.annovar.invalid_input
+      │   ├── 2.vcf.annovar.log
+      │   ├── 2.vcf.annovar.variant_function
+      │   ├── netMHCpan4_1
+      │   │   ├── headerMHCI
+      │   │   ├── headerMHCII
+      │   │   ├── headerVCF
+      │   │   ├── map_NM_geneName
+      │   │   ├── mut.fa
+      │   │   ├── mut.fa_15
+      │   │   ├── mut.fa_8
+      │   │   ├── netMHCI_HLA-A01:01_mut
+      │   │   ├── netMHCI_HLA-A01:01_mut_reformat
+      │   │   ├── netMHCI_HLA-A01:01_ref
+      │   │   ├── netMHCI_HLA-A01:01_ref_reformat
+      │   │   ├── netMHCI_HLA-A01:01_summary
+      │   │   ├── netMHCI_HLA-A02:01_mut
+      │   │   ├── netMHCI_HLA-A02:01_mut_reformat
+      │   │   ├── netMHCI_HLA-A02:01_ref
+      │   │   ├── netMHCI_HLA-A02:01_ref_reformat
+      │   │   ├── netMHCI_HLA-A02:01_summary
+      │   │   ├── netMHCI_HLA-B08:01_mut
+      │   │   ├── netMHCI_HLA-B08:01_mut_reformat
+      │   │   ├── netMHCI_HLA-B08:01_ref
+      │   │   ├── netMHCI_HLA-B08:01_ref_reformat
+      │   │   ├── netMHCI_HLA-B08:01_summary
+      │   │   ├── netMHCI_HLA-B40:01_mut
+      │   │   ├── netMHCI_HLA-B40:01_mut_reformat
+      │   │   ├── netMHCI_HLA-B40:01_ref
+      │   │   ├── netMHCI_HLA-B40:01_ref_reformat
+      │   │   ├── netMHCI_HLA-B40:01_summary
+      │   │   ├── netMHCI_HLA-C03:04_mut
+      │   │   ├── netMHCI_HLA-C03:04_mut_reformat
+      │   │   ├── netMHCI_HLA-C03:04_ref
+      │   │   ├── netMHCI_HLA-C03:04_ref_reformat
+      │   │   ├── netMHCI_HLA-C03:04_summary
+      │   │   ├── netMHCI_HLA-C07:01_mut
+      │   │   ├── netMHCI_HLA-C07:01_mut_reformat
+      │   │   ├── netMHCI_HLA-C07:01_ref
+      │   │   ├── netMHCI_HLA-C07:01_ref_reformat
+      │   │   ├── netMHCI_HLA-C07:01_summary
+      │   │   ├── netMHCII_DRB1_0301_mut
+      │   │   ├── netMHCII_DRB1_0301_mut_reformat
+      │   │   ├── netMHCII_DRB1_0301_ref
+      │   │   ├── netMHCII_DRB1_0301_ref_reformat
+      │   │   ├── netMHCII_DRB1_0301_summary
+      │   │   ├── netMHCII_DRB1_1302_mut
+      │   │   ├── netMHCII_DRB1_1302_mut_reformat
+      │   │   ├── netMHCII_DRB1_1302_ref
+      │   │   ├── netMHCII_DRB1_1302_ref_reformat
+      │   │   ├── netMHCII_DRB1_1302_summary
+      │   │   ├── predictedProtein.fa
+      │   │   ├── ref.fa
+      │   │   ├── ref.fa_15
+      │   │   ├── ref.fa_8
+      │   │   ├── results_MHCI_epitopes.tab
+      │   │   ├── results_MHCI_epitopes.tab.hydro
+      │   │   ├── results_MHCI_epitopes.tab.hydro_splitGenes
+      │   │   ├── results_MHCI_epitopes.tab_splitGenes
+      │   │   ├── results_MHCII_epitopes.tab
+      │   │   ├── results_MHCII_epitopes.tab.hydro
+      │   │   ├── results_MHCII_epitopes.tab.hydro_splitGenes
+      │   │   └── results_MHCII_epitopes.tab_splitGenes
+      │   ├── snvs_IPNCT_P013521_germline_functional_snvs_conf_8_to_10.vcf
+      │   └── snvs_IPNCT_P013521_somatic_functional_snvs_conf_8_to_10.vcf
+      ├── 3_add_expression
+      │   ├── addRNA1
+      │   ├── addRNA2
+      │   ├── addRNA3
+      │   ├── fpkm_COL6A3_exon6.txt
+      │   ├── MHCI_epitopes_TCGA-HNSC_RNAseq_netMHCpan4_1.tab
+      │   ├── MHCII_epitopes_TCGA-HNSC_RNAseq.tab
+      │   ├── past
+      │   │   ├── MHCI_epitopes_RNAseq_netMHCpan4_1.tab
+      │   │   └── MHCII_epitopes_RNAseq.tab
+      │   ├── tumor_IPNCT_P013521.fpkm_tpm.featureCounts.tsv
+      │   ├── tumor_IPNCT_P013521_merged.mdup.bam
+      │   └── tumor_IPNCT_P013521_merged.mdup.bam.bai
+      ├── 4_indel_based_prediction
+      │   ├── indel_IPNCT_P013521_germline_functional_indels_conf_8_to_10.vcf
+      │   ├── indel_IPNCT_P013521_somatic_functional_indels_conf_8_to_10.vcf
+      │   └── result
+      ├── 5_LOHHLA
+      │   ├── data
+      │   │   ├── example.patient.hlaFasta.fa
+      │   │   ├── hlas
+      │   │   └── HLAs
+      │   ├── example-file
+      │   │   └── bam
+      │   └── example-out
+      │       ├── Figures
+      │       ├── running.hla.loh.exome@Mon_May_13_11-42-49_2024_log.txt
+      │       ├── running.hla.loh.exome@Wed_Apr_24_16-26-50_2024_log.txt
+      │       ├── running.hla.loh.exome@Wed_Apr_24_16-52-35_2024_log.txt
+      │       └── running.hla.loh.exome@Wed_Dec_18_10-53-56_2024_log.txt
+      ├── 8_chose_neoepitode
+      │   ├── MHCI_epitopes_TCGA-HNSC_RNAseq_netMHCpan4_1.tab
+      │   ├── MHCI_epitopes_TCGA-HNSC_RNAseq_netMHCpan4_1.tab_renameCol
+      │   ├── MHCI_epitopes_TCGA-HNSC_RNAseq_netMHCpan4_1.tab_renameCol_wish
+      │   ├── MHCII_epitopes_TCGA-HNSC_RNAseq.tab
+      │   ├── MHCII_epitopes_TCGA-HNSC_RNAseq.tab_renameCol
+      │   ├── MHCII_epitopes_TCGA-HNSC_RNAseq.tab_renameCol_wish
+      │   └── wish_list_genes_expression.csv
+      ├── 9_Fusion_gene_based_neoepitope_identification
+      │   ├── 2_arriba_result_RNAbamOpt
+      │   │   ├── fusions.discarded.tsv
+      │   │   ├── fusions.tsv
+      │   │   ├── fusions.tsv_splitGenes
+      │   │   ├── netMHCII_input.txt
+      │   │   └── netMHCI_input.txt
+      │   └── 3_neoPrediction_RNAbamOpt
+      │       ├── MHCI_filtered
+      │       ├── MHCII_filtered
+      │       ├── MHCII_reformat
+      │       ├── MHCI_reformat
+      │       ├── netMHCI_HLA-A01:01_fusion
+      │       ├── netMHCI_HLA-A02:01_fusion
+      │       ├── netMHCI_HLA-B08:01_fusion
+      │       ├── netMHCI_HLA-B40:01_fusion
+      │       ├── netMHCI_HLA-C03:04_fusion
+      │       ├── netMHCI_HLA-C07:01_fusion
+      │       ├── netMHCII_DQA1_0102_fusion
+      │       ├── netMHCII_DQB1_0201_fusion
+      │       ├── netMHCII_DQB1_0604_fusion
+      │       ├── netMHCII_DRB1_0301_fusion
+      │       ├── netMHCII_DRB1_1302_fusion
+      │       ├── peptides_for_binding_prediction.fa
+      │       ├── peptides_for_binding_prediction.fa_15
+      │       ├── peptides_for_binding_prediction.fa_8
+      │       ├── results_P013521_neoPrediction_MHCI_epitopes_filtered_ident.tsv
+      │       ├── results_P013521_neoPrediction_MHCI_epitopes_filtered_ident.tsv_mer
+      │       ├── results_P013521_neoPrediction_MHCII_epitopes_filtered_ident.tsv
+      │       ├── stdout_extractProtein_fusion
+      │       ├── stdout_netMHC_fusion
+      │       ├── stdout_summary
+      │       └── wild-type_peptides
+      └── tmp_run_status
 
-25 directories, 151 files
+   25 directories, 151 files
 
 
 ## location: 1_hla_type
