@@ -1,6 +1,6 @@
 ---
-title: "Sample Document"
-author: "Author Name"
+title: "cNePP Documentation"
+author: "Yanhong Lyu"
 date: "2025-02-01"
 ---
 
