@@ -55,6 +55,8 @@ function usage() {
 
 	] -h: hlaID
 		(NCT_IP): NCT internal patient, promise
+	] -g: hg version
+		(hg19), hg38
 	] -l: mer length
 		(21), 27
 	] -c: (CANCER)
@@ -83,7 +85,7 @@ function usage() {
 	exit 1
 	}
 
-while getopts :r:e:p:t:s:d:h:a:c:b:w:o:l: opt; do
+while getopts :r:e:p:t:s:d:h:g:a:c:b:w:o:l: opt; do
 	case $opt in
 		r)
 			runID=${OPTARG}
@@ -105,6 +107,9 @@ while getopts :r:e:p:t:s:d:h:a:c:b:w:o:l: opt; do
 			;;
 		h)
 			hlaID=${OPTARG}
+			;;
+		g)
+			hgVersion=${OPTARG}
 			;;
 		a)
 			dataType=${OPTARG}
@@ -152,6 +157,10 @@ if [ -z $hlaID ]; then
 	hlaID=NCT_IP
 fi
 
+if [ -z $hgVersion ]; then
+	hgVersion=hg19
+fi
+
 if [ -z $dataType ]; then
 	dataType=RNAbamOpt
 fi
@@ -195,6 +204,7 @@ if [ -z $debug ]; then
 		tcga=$tcga,\
 		steps=$steps,\
 		hlaID=$hlaID,\
+		hgVersion=$hgVersion,\
 		dataType=$dataType,\
 		cgiTumorType=$cgiTumorType,\
 		vcfOnly=$vcfOnly,\
@@ -218,6 +228,7 @@ else
 	export steps
 	export debug
 	export hlaID
+	export hgVersion
 	export dataType
 	export cgiTumorType
 	export vcfOnly

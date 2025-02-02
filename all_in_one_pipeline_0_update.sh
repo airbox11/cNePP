@@ -23,7 +23,8 @@ script_hla=$dir_pipeline/script_hla
 script_fusion=$dir_pipeline/script_fusion
 
 
-dir_tcga=/omics/groups/OE0422/internal/tcga_fpkm
+# dir_tcga=/omics/groups/OE0422/internal/tcga_fpkm
+dir_tcga=$dir_root/yanhong/tcga_fpkm
 
 if [[ $hlaID == promise ]]; then
 	runID_tumorID=$runID
@@ -594,6 +595,13 @@ function f_vcfOnly_pathology () {
 	cat $dir_pipeline/vcf_header.txt >> 1.vcf
 	cat *org | grep -v '^#' >> 1.vcf
 
+	if [ $hgVersion == 'hg38' ]; then
+		script_py=$dir_pipeline/hg38_to_hg19_vcf.py #debug
+		python $script_py 1.vcf 3_19 3_38
+		mv 3_19 1.vcf
+		rm -rf 3_38
+	fi
+
 	## input: 1.vcf; output: 2.vcf
 	script=$dir_pipeline/prepare_vcf.r
 	Rscript $script $workDir/2_SNVs_based_neoepitope_prediction $vcfOnly
@@ -671,7 +679,7 @@ function s2_snv () {
 	cd ${workDir}/2_SNVs_based_neoepitope_prediction
 	# rm -rf netMHCpan4_1 #debug;transcriptIDs
 	if [ -f *org ] && [[ ${vcfOnly,,} == 'pathology' ]];then
-		f_vcfOnly_pathology
+		# f_vcfOnly_pathology
 		vcf=${workDir}/2_SNVs_based_neoepitope_prediction/snv_somatic.vcf
 	fi
 

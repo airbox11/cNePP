@@ -53,3 +53,7 @@ X.Rank_EL	Rank_EL_Mut
 X1.log50k.aff.	log50k.aff_Mut
 X9mer_core_mut	9mer_core_Mut
 X9mer_core_wt	9mer_core_Wt
+freRef	rna_freRef
+freAlt	rna_freAlt
+expAlt	rna_expAlt
+freAlt.FPKM	rna_freAlt.FPKM

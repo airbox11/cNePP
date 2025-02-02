@@ -1,8 +1,12 @@
 library(stringr)
 library(WriteXLS)
-source('/omics/groups/OE0422/internal/yanhong/all_in_one_pipeline/change_names_function.r')
 options(warn = -1)
 
+
+dir_pipeline <- Sys.getenv("dir_pipeline")
+# changeName_r <- '/omics/groups/OE0422/internal/yanhong/all_in_one_pipeline/change_names_function.r'
+changeName_r <- paste0(dir_pipeline, '/change_names_function.r')
+source(changeName_r)
 
 args = commandArgs(trailingOnly=TRUE)
 if (length(args)==0) {

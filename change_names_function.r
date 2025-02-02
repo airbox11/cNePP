@@ -1,7 +1,11 @@
 library(stringr)
 
+# reName_file <- '/omics/groups/OE0422/internal/yanhong/all_in_one_pipeline/reName.tsv'
+dir_pipeline <- Sys.getenv("dir_pipeline")
+# dir_pipeline <- '/omics/odcf/analysis/OE0422_projects/Immuno-Patients-NCT/yanhong/all_in_one_pipeline'
+reName_file <- paste0(dir_pipeline, '/reName.tsv')
 
-df.name <- read.table('/omics/groups/OE0422/internal/yanhong/all_in_one_pipeline/reName.tsv', header = FALSE, row.names = NULL, sep = '\t', stringsAsFactors = FALSE, quote="")
+df.name <- read.table(reName_file, header = FALSE, row.names = NULL, sep = '\t', stringsAsFactors = FALSE, quote="")
 colnames(df.name) <- c('name_old', 'name_new')
 change.names <- function(df1) {
   

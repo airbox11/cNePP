@@ -14,6 +14,7 @@ import pdb
 headers = {'Authorization': 'lvyhwind@hotmail.com 828adf7a9f548e3d6dc4'}
 headers = {'Authorization': 'lvyanhongkao@gmail.com 1b707b6766a037c8a299'}
 
+headers = {'Authorization': 'lvyanhongkao@gmail.com 5a77cff06c4d10f266b9'}
 headers = {'Authorization': 'lvyhwind@hotmail.com 828adf7a9f548e3d6dc4'}
 
 
@@ -74,8 +75,9 @@ def jobs_remove_all ():
 	print('=== === remove older cgi tasks:')
 	jobs = get_identifier()
 	len1 = len(jobs)
+	# pdb.set_trace()
 	if len1 > 10:
-		for job_id in jobs[:(len1-10)]:
+		for job_id in jobs[:(len1-5)]:
 			job_delete(job_id)
 	get_identifier()
 
@@ -106,7 +108,8 @@ if vcfOnly=='promise':
 	hg = 'hg38'
 else:
 	hg = 'hg19'
+jobs_remove_all()
 job_id = job_launch(hg)
 job_wait_download(job_id)
-jobs_remove_all()
 print('===] cgi done')
+

@@ -12,14 +12,14 @@ vcfOnly <- Sys.getenv('vcfOnly')
 org.snv <- Sys.getenv('org_snv')
 org.ind <- Sys.getenv('org_ind')
 
-print(workDir)
-print(vcfOnly)
-print(org.snv)
-print(org.ind)
+# print(workDir)
+# print(vcfOnly)
+# print(org.snv)
+# print(org.ind)
 
 ## for test ====
 
-  # workDir <- '/omics/groups/OE0422/internal/yanhong/all_in_one_pipeline_collection/mhc4.1/H021-PAQVNC_meta'
+  # workDir <- '/omics/odcf/analysis/OE0422_projects/Immuno-Patients-NCT/yanhong/all_in_one_pipeline_result/H021-3GKZLA_meta01'
   # vcfOnly <- 'origin'
   # org.snv <- ''
   # org.ind <- ''
@@ -51,6 +51,67 @@ promise_hg38 <- function(df3, snv_indel) {
   df.3.promise <- merge(df3,df.promise.1, by='chrPos',all.x = TRUE)
   return(df.3.promise)
 }
+
+
+calculate_hydrophobic_fraction_snv <- function(df3) {
+  # Define hydrophobic amino acids
+  hydrophobes <- c("V", "I", "L", "F", "M", "W", "C")
+  
+  
+  # Check if 'peptide' column exists
+  if (!"Mutant_peptide" %in% colnames(df3)) {
+    stop("Dataframe must contain a column named 'peptide'")
+  }
+  
+  # Calculate hydrophobic fraction for each peptide
+  df3$hydro_frac_mut <- sapply(df3$Mutant_peptide, function(peptide) {
+    peptide <- trimws(peptide)
+    if (nchar(peptide) == 0) {
+      return(NA)  # Handle empty peptides
+    }
+    # Calculate the fraction of hydrophobic amino acids
+    sum(strsplit(peptide, NULL)[[1]] %in% hydrophobes) / nchar(peptide)
+  })
+  
+  df3$hydro_frac_wild <- sapply(df3$Wildtype_peptide, function(peptide) {
+    peptide <- trimws(peptide)
+    if (nchar(peptide) == 0) {
+      return(NA)  # Handle empty peptides
+    }
+    # Calculate the fraction of hydrophobic amino acids
+    sum(strsplit(peptide, NULL)[[1]] %in% hydrophobes) / nchar(peptide)
+  })
+  
+  df3$hydro_mut_wild_ratio <- df3$hydro_frac_mut/df3$hydro_frac_wild
+  return(df3)
+}
+
+
+calculate_hydrophobic_fraction_indel <- function(df3) {
+  # Define hydrophobic amino acids
+  hydrophobes <- c("V", "I", "L", "F", "M", "W", "C")
+  
+  
+  # Check if 'peptide' column exists
+  if (!"Peptide" %in% colnames(df3)) {
+    return(df3)
+  }
+  
+  # Calculate hydrophobic fraction for each peptide
+  df3$hydro_frac_mut <- sapply(df3$Peptide, function(peptide) {
+    peptide <- trimws(peptide)
+    if (nchar(peptide) == 0) {
+      return(NA)  # Handle empty peptides
+    }
+    # Calculate the fraction of hydrophobic amino acids
+    sum(strsplit(peptide, NULL)[[1]] %in% hydrophobes) / nchar(peptide)
+  })
+
+  return(df3)
+}
+
+
+
 
 ## prepare cgi  ====
 perpare.cgi <- function() {
@@ -113,7 +174,8 @@ merge.snv.run <- function() {
 
   df3 <- merge(df2, df.wish[,!colnames(df.wish) %in% c('external_gene_name')], by.x = 'geneID', by.y = 'ensembl_gene_id', all.x = TRUE)
   df3$wishList[is.na(df3$wishList)] <- FALSE
-  cols <- c('geneID','Gene','MHC_allele','Mutant_peptide','aaChange','Epitope_length','Mut_pos_epitope','Score_EL_mut','Rank_EL_Mut','Score_BA_mut','Rank_BA_mut','Aff.nM_mut','BindLevel_mut','Wildtype_peptide','Score_EL_wt','Rank_EL_wt','Score_BA_wt','Rank_BA_wt','Aff.nM_wt','BindLevel_wt','Epi_pos_in_longpep','Mutant_long_peptide','WildType_long_peptide','GenBank_entry_mRNA','TPM','FPKM','Mean','Median','sumReads','numOfBaseExp','freRef','freAlt','expAlt','freAlt.FPKM','dna_freAlt','dna_cov','CHROM','POS','CGI.Oncogenic.Summary','CGI.Oncogenic.Prediction','CGI.Consequence','CGI.Transcript','wishList', 'Hydrophobic_GRAVY', 'ANNOVAR_TRANSCRIPTS')
+  # cols <- c('geneID','Gene','MHC_allele','Mutant_peptide','aaChange','Epitope_length','Mut_pos_epitope','Score_EL_mut','Rank_EL_Mut','Score_BA_mut','Rank_BA_mut','Aff.nM_mut','BindLevel_mut','Wildtype_peptide','Score_EL_wt','Rank_EL_wt','Score_BA_wt','Rank_BA_wt','Aff.nM_wt','BindLevel_wt','Epi_pos_in_longpep','Mutant_long_peptide','WildType_long_peptide','GenBank_entry_mRNA','TPM','FPKM','Mean','Median','sumReads','numOfBaseExp','freRef','freAlt','expAlt','freAlt.FPKM','dna_freAlt','dna_cov','CHROM','POS','CGI.Oncogenic.Summary','CGI.Oncogenic.Prediction','CGI.Consequence','CGI.Transcript','wishList', 'Hydrophobic_GRAVY', 'ANNOVAR_TRANSCRIPTS')
+  cols <- c('geneID','Gene','MHC_allele','Mutant_peptide','aaChange','Epitope_length','Mut_pos_epitope','Score_EL_mut','Rank_EL_Mut','Score_BA_mut','Rank_BA_mut','Aff.nM_mut','BindLevel_mut','Wildtype_peptide','Score_EL_wt','Rank_EL_wt','Score_BA_wt','Rank_BA_wt','Aff.nM_wt','BindLevel_wt','Epi_pos_in_longpep','Mutant_long_peptide','WildType_long_peptide','GenBank_entry_mRNA','TPM','FPKM','Mean','Median','sumReads','numOfBaseExp','freRef','freAlt','expAlt','freAlt.FPKM','dna_freAlt','dna_cov','CHROM','POS','CGI.Oncogenic.Summary','CGI.Oncogenic.Prediction','CGI.Consequence','wishList', 'Hydrophobic_GRAVY', 'ANNOVAR_TRANSCRIPTS')
 
   for (i in cols[!cols%in%names(df3)]){
     df3[[i]] <- NA
@@ -123,7 +185,7 @@ merge.snv.run <- function() {
     df3 <- promise_hg38(df3, 'snv')
   }
 
-
+  df3 <- calculate_hydrophobic_fraction_snv(df3)
   write.table(df3, file = paste0('./8_chose_neoepitode/', file.input,'_wish'), col.names = TRUE, row.names = FALSE, sep = '\t', quote = FALSE)
 
   ## snv MHCII
@@ -143,7 +205,8 @@ merge.snv.run <- function() {
   df3 <- merge(df2, df.wish[,!colnames(df.wish) %in% c('external_gene_name')], by.x = 'geneID', by.y = 'ensembl_gene_id', all.x = TRUE)
   df3$wishList[is.na(df3$wishList)] <- FALSE
 
-  cols <- c('geneID','Gene','MHC_allele','Mutant_peptide','aaChange','Epitope_length','Mut_pos_epitope','X9mer_core_mut','Aff.nM_mut','Rank_mut','BindLevel_mut','Wildtype_peptide','X9mer_core_wt','Aff.nM_wt','Rank_wt','BindLevel_wt','WildType_lng_peptide','Mutant_long_peptide','Epi_pos_in_longpep','GenBank_entry_mRNA','TPM','FPKM','Mean','Median','sumReads','numOfBaseExp','freRef','freAlt','expAlt','freAlt.FPKM','dna_freAlt','dna_cov', 'CHROM','POS','CGI.Oncogeic.Summary','CGI.Oncogenic.Prediction','CGI.Consequence','CGI.Transcript','wishList', 'Hydrophobic_GRAVY', 'ANNOVAR_TRANSCRIPTS')
+  # cols <- c('geneID','Gene','MHC_allele','Mutant_peptide','aaChange','Epitope_length','Mut_pos_epitope','X9mer_core_mut','Aff.nM_mut','Rank_mut','BindLevel_mut','Wildtype_peptide','X9mer_core_wt','Aff.nM_wt','Rank_wt','BindLevel_wt','WildType_lng_peptide','Mutant_long_peptide','Epi_pos_in_longpep','GenBank_entry_mRNA','TPM','FPKM','Mean','Median','sumReads','numOfBaseExp','freRef','freAlt','expAlt','freAlt.FPKM','dna_freAlt','dna_cov', 'CHROM','POS','CGI.Oncogeic.Summary','CGI.Oncogenic.Prediction','CGI.Consequence','CGI.Transcript','wishList', 'Hydrophobic_GRAVY', 'ANNOVAR_TRANSCRIPTS')
+  cols <- c('geneID','Gene','MHC_allele','Mutant_peptide','aaChange','Epitope_length','Mut_pos_epitope','X9mer_core_mut','Aff.nM_mut','Rank_mut','BindLevel_mut','Wildtype_peptide','X9mer_core_wt','Aff.nM_wt','Rank_wt','BindLevel_wt','WildType_lng_peptide','Mutant_long_peptide','Epi_pos_in_longpep','GenBank_entry_mRNA','TPM','FPKM','Mean','Median','sumReads','numOfBaseExp','freRef','freAlt','expAlt','freAlt.FPKM','dna_freAlt','dna_cov', 'CHROM','POS','CGI.Oncogeic.Summary','CGI.Oncogenic.Prediction','CGI.Consequence','wishList', 'Hydrophobic_GRAVY', 'ANNOVAR_TRANSCRIPTS')
 
   for (i in cols[!cols%in%names(df3)]){
     df3[[i]] <- NA
@@ -152,6 +215,7 @@ merge.snv.run <- function() {
   if (vcfOnly == 'promise') {
     df3 <- promise_hg38(df3, 'snv')
   }
+  df3 <- calculate_hydrophobic_fraction_snv(df3)
   write.table(df3, file = paste0(file.input,'_wish'), col.names = TRUE, row.names = FALSE, sep = '\t', quote = FALSE)
 
 }
@@ -184,6 +248,7 @@ merge.indel <- function(dir1, pattern){
   if (vcfOnly == 'promise') {
     df3 <- promise_hg38(df3,'indel')
   }
+  df3 <- calculate_hydrophobic_fraction_indel(df3)
   write.table(df3, file = paste0(dir1, file.input,'_wish'), col.names = TRUE, row.names = FALSE, sep = '\t', quote = FALSE)
   
 }
