@@ -170,7 +170,7 @@ This section explains the parameters of the pipeline in detail, providing defaul
 
 ---
 
-## **Usage Example**
+## **Usage**
 
 This will run the pipeline with the specified steps: preparing the folder, processing HLA data (step s1b), SNV analysis, and converting the results to public XLSX format. Debug mode is enabled, and the output will be logged.
 
@@ -192,6 +192,32 @@ bash all_in_one_pipeline.sh \
   -l 21
 ```
 
+### example with one sample
+```bash
+    # create folders for this sample
+    all_in_one_pipeline -r P143091_tumor01     -t TCGA-PAAD_RNAseq -c paad -s s0 -d debug
+
+    # if files/links could not be created automatically, create them manually. The necessary files are needed as below:
+    # For sample from pathology patient with no vcf files from ODCF mutation calling pipeline, its own vcf need to be renamed with .org as suffix and be copied to ./2_SNVs_based_neoepitope_prediction
+    # ./1_hla_type/control01_IPNCT_P143091_merged.mdup.bam
+    # ./2_SNVs_based_neoepitope_prediction/snvs_IPNCT_P143091_somatic_functional_snvs_conf_8_to_10.vcf
+    # ./2_SNVs_based_neoepitope_prediction/snvs_IPNCT_P143091_germline_functional_snvs_conf_8_to_10.vcf
+    # ./3_add_expression/tumor01_IPNCT_P143091_merged.mdup.bam (If RNAseq data is available)
+    # ./3_add_expression/tumor01_IPNCT_P143091.fpkm_tpm.featureCounts.tsv (If RNAseq data is available)
+    # ./4_indel_based_prediction/indel_IPNCT_P143091_somatic_functional_indels_conf_8_to_10.vcf
+    # ./4_indel_based_prediction/indel_IPNCT_P143091_germline_functional_indels_conf_8_to_10.vcf
+    # ./tmp_run_status
+
+
+    # run HLA type prediction
+    all_in_one_pipeline -r P143091_tumor01     -t TCGA-PAAD_RNAseq -c paad -s s1
+
+    # run HLA type prediction again to get final HLA file (to be optimized in future)
+    all_in_one_pipeline -r P143091_tumor01     -t TCGA-PAAD_RNAseq -c paad -s s1 -d debug
+
+    # run the pipeline 
+    all_in_one_pipeline -r P143091_tumor01     -t TCGA-PAAD_RNAseq -c paad -s snv-indel-fusion-xlsx
+```
 ---
 ## License
 
