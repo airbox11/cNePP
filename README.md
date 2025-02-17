@@ -4,8 +4,6 @@ author: "Yanhong Lyu"
 date: "2025-02-01"
 ---
 
----
-
 # 
        ▄▄▄▄▄▄▄▄▄▄▄  ▄▄        ▄  ▄▄▄▄▄▄▄▄▄▄▄  ▄▄▄▄▄▄▄▄▄▄▄  ▄▄▄▄▄▄▄▄▄▄▄ 
       ▐░░░░░░░░░░░▌▐░░▌      ▐░▌▐░░░░░░░░░░░▌▐░░░░░░░░░░░▌▐░░░░░░░░░░░▌
@@ -193,6 +191,22 @@ bash all_in_one_pipeline.sh \
 ```
 
 ### example with one sample
+
+#### cegat dataroom download data
+    https://download.cegat.de/login?continue=/securooms/dataroom/
+
+#### file location for ODCF processing
+    /omics/odcf/transfer/OE0422_Immuno_Patients_NCT
+
+#### meta file for ODCF processing (example)
+    /omics/odcf/analysis/OE0422_projects/Immuno-Patients-NCT/yanhong/transfer_neo/meta_2025.01.23.csv_complete
+
+#### pathology data location
+    /net/bq-storage/ag-jaeger/_C_Pathology
+
+#### GUIDE (to submit data to ODCF mutation calling pipeline)
+    https://odcf-guide.dkfz.de/metadata-validator/overview/uploaded/user
+
 ```bash
     # create folders for this sample
     all_in_one_pipeline -r P143091_tumor01     -t TCGA-PAAD_RNAseq -c paad -s s0 -d debug
