@@ -70,29 +70,13 @@ The pipeline processes data step-by-step based on the selected options (`-s step
    - **`s0`**: Set up folders and initialize the environment.  
 
 - **HLA Typing**:  
-   - **`s1a_HLA`**: Perform HLA typing (step 1a) in an older version.  
-   - **`s1b_HLA`**: Perform HLA typing (step 1b).  
+   - **`s1b`**: Perform HLA typing (step 1b).  
 
 - **Variant Analysis**:  
-   - **`s2_snv`**: Single Nucleotide Variant (SNV) based neoepitope prediction.  
-   - **`i4a_indel_predict, i4b`**: Indel based neoepitope prediction.  
-
-- **Expression Data Integration**:  
-   - **`s3_add_expression`**: Add expression data to the analysis.  
-
-- **Fusion Detection**:  
-   - **`f1a`**: Run STAR and Arriba to detect gene fusions.  
-
-- **Neoantigen Prediction**:  
-   - **`f1-f4`**: fusion mutation calling and fusion based neoantigens prediction.  
-
-- **Additional Predictions**:  
-   - **`f5`**: Convert data to XLSX format for downstream analysis.  
-   
-- **Data Filtering and Formatting**:  
-   - **`s8a_filter`**: Filter processed data.  
-   - **`s8b_xlsx_to_public`**: Convert filtered data to a public format (e.g., XLSX).  
-
+   - **`snv`**: Single Nucleotide Variant (SNV) based neoepitope prediction.  
+   - **`indel`**: Indel based neoepitope prediction.  
+   - **`fusion`**: fusion based neoepitope prediction.  
+   - **`xlsx`**: Data Formatting.  
 
 ---
 ## Usage
@@ -873,7 +857,7 @@ This README provides a comprehensive guide on how to use the pipeline, the avail
 │   └── In_silico (predicted by appotitype and korami)
 │       └── format_hla
 ├── Mutation_analysis
-│   ├── CGI (Cancer Genome Interpreter output, more details [here](https://www.cancergenomeinterpreter.org/analysis?msg=Malformated%20entry:%20ACAP2%20KCNAB1&value=ACAP2%09KCNAB1%0AACAP2%09KCNAB1%0ASTAT3%09RNU7-97P%0ARSRC1%09RP11-23D24.2%0AMUC4%09RSRC1%0ALTBP1%09BIRC6%0ABCL2L2-PABPN1%09PPP1R3E%0AHIC2%09TMEM191C%0ASTAG1%09KCNAB1%0AZFYVE19%09RPS3AP23%0ABABAM1%09BABAM1%0ASCAF1%09SCAF1%0AVRK2%09FANCL%0AELF1%09TPTE2P5%0AELF1%09TPTE2P5%0AHAP1%09ABHD15%0ASTAT3%09ATP6V0A1))
+│   ├── CGI (Cancer Genome Interpreter output, more details
 │   │   ├── alterations.tsv
 │   │   ├── biomarkers.tsv
 │   │   ├── input01.tsv
